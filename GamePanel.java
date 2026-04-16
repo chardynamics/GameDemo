@@ -9,69 +9,55 @@ import java.awt.event.KeyEvent;
 
 
 public class GamePanel extends JPanel implements KeyListener {
-    private int playerX = 100;
-    private int playerY = 100;
-    private int playerSpeed = 5;
+    private static final int TILE_SIZE = 50;
+    Player player = new Player(0, 0, TILE_SIZE);
+    boolean upPressed = false;
+    boolean downPressed = false;
+    boolean leftPressed = false;
+    boolean rightPressed = false;
+
     private Timer timer;
-    private int[][] grid = new int[10][10];
-    private static final int TILE_SIZE = 60;
+    TileMap map;
 
     public GamePanel() {
         addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
+        map = new TileMap(10, 10, TILE_SIZE);
         timer = new Timer(16, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateGame();
             }
         });
-        for(int i=0; i<10; i++) {
-            for(int j=0; j<10; j++) {
-                if(Math.random() < 0.5) {
-                    grid[i][j] = 0;
-                } else {
-                    grid[i][j] = 1;
-                }
-            }
-        }
         timer.start();
     }
     
     private void updateGame() {
+        player.update(upPressed, downPressed, leftPressed, rightPressed, map);
+        player.updateAnimation();
         repaint();
     }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.WHITE);
-        for(int i=0; i<10; i++) {
-            for (int j=0; j<10; j++) {
-                if(grid[i][j] == 0) {
-                    g.setColor(Color.BLACK);
-                } else {
-                    g.setColor(Color.WHITE);
-                }
-                g.fillRect(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            }
-        }
-        
-        g.setColor(Color.BLUE);
-        g.fillRect(playerX, playerY, TILE_SIZE, TILE_SIZE);
+        map.draw(g);
+        player.draw(g);
     }
 
     public void keyTyped(KeyEvent e) {}
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        switch(key) {
-            case KeyEvent.VK_LEFT:
-                playerX -= playerSpeed;
-            case KeyEvent.VK_RIGHT:
-                playerX += playerSpeed;
-            case KeyEvent.VK_UP:
-                playerY -= playerSpeed;
-            case KeyEvent.VK_DOWN:
-                playerY += playerSpeed;
-        }
+        if(key == KeyEvent.VK_LEFT) leftPressed = true;
+        if(key == KeyEvent.VK_RIGHT) rightPressed = true;
+        if(key == KeyEvent.VK_UP) upPressed = true;
+        if(key == KeyEvent.VK_DOWN) downPressed = true;
     }
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+        if(key == KeyEvent.VK_LEFT) leftPressed = false;
+        if(key == KeyEvent.VK_RIGHT) rightPressed = false;
+        if(key == KeyEvent.VK_UP) upPressed = false;
+        if(key == KeyEvent.VK_DOWN) downPressed = false;
+    }
 }
