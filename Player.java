@@ -11,7 +11,7 @@ public class Player {
     int velocityY = 0;
     int gravity = 1;
     boolean onGround = false;
-
+    public boolean winCondition = false;
     BufferedImage sprite1;
     BufferedImage sprite2;
 
@@ -67,6 +67,12 @@ public class Player {
             velocityY = 0;
             onGround = true;
         }
+
+        if((y == 200) && (x == 53)) {
+            winCondition = true;
+        }
+        System.out.println(x);
+        System.out.println(y);
     }
 
     public void draw(Graphics g) {
@@ -79,5 +85,6 @@ public class Player {
         }
 
         g.drawImage(sprite, x, y, size, size, null);
+        g.drawString("Test", 50, 50);
     }
 }

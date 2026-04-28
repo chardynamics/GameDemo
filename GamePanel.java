@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel implements KeyListener {
     private static final int TILE_SIZE = 50;
-    Player player = new Player(60, 545, TILE_SIZE);
+    Player player = new Player(60, 450, TILE_SIZE);
     boolean upPressed = false;
     boolean downPressed = false;
     boolean leftPressed = false;
@@ -43,6 +43,10 @@ public class GamePanel extends JPanel implements KeyListener {
         setBackground(Color.WHITE);
         map.draw(g);
         player.draw(g);
+        if (player.winCondition) {
+            g.setColor(Color.BLACK);
+            g.drawString("You Win!", 325, 325);
+        }
     }
 
     public void keyTyped(KeyEvent e) {}

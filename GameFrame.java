@@ -6,7 +6,7 @@ public class GameFrame extends JFrame {
     private static final int HEIGHT = 650;
 
     public GameFrame() {
-        setTitle("My First Swing Game");
+        setTitle("Spooderman");
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
