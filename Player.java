@@ -8,6 +8,9 @@ public class Player {
     int y;
     int speed = 5;
     int size;
+    int velocityY = 0;
+    int gravity = 1;
+    boolean onGround = false;
 
     BufferedImage sprite1;
     BufferedImage sprite2;
@@ -39,21 +42,30 @@ public class Player {
         int nextX = x;
         int nextY = y;
 
-        if (up) nextY -= speed;
-        if (down) nextY += speed;
+        if (up && onGround) {
+            velocityY = -15;
+            nextY += velocityY;
+        } else {
+            nextY += velocityY;
+        }
         if (left) {
-            nextX -= speed;
+            nextX -= 7;
         }
         if (right) {
-            nextX += speed;
+            nextX += 7;
         }
 
         if (!map.isColliding(nextX, y, size)) {
             x = nextX;
-        }
+        } 
 
         if (!map.isColliding(nextY, x, size)) {
             y = nextY;
+            velocityY += gravity;
+            onGround = false;
+        } else {
+            velocityY = 0;
+            onGround = true;
         }
     }
 

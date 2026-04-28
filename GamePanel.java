@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel implements KeyListener {
     private static final int TILE_SIZE = 50;
-    Player player = new Player(0, 0, TILE_SIZE);
+    Player player = new Player(60, 545, TILE_SIZE);
     boolean upPressed = false;
     boolean downPressed = false;
     boolean leftPressed = false;
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements KeyListener {
         addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
-        map = new TileMap(10, 10, TILE_SIZE);
+        map = new TileMap(13, 13, TILE_SIZE);
         timer = new Timer(16, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateGame();

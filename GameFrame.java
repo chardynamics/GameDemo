@@ -2,12 +2,12 @@ import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
 
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int WIDTH = 650;
+    private static final int HEIGHT = 650;
 
     public GameFrame() {
         setTitle("My First Swing Game");
-        setSize(800, 600);
+        setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);

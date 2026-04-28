@@ -16,15 +16,22 @@ public class TileMap {
     }
 
     private void generateMap() {
-        for(int i=0; i<10; i++) {
-            for(int j=0; j<10; j++) {
-                if(Math.random() < 0.5) {
-                    grid[i][j] = 0;
-                } else {
+        for(int i=0; i<cols; i++) {
+            for(int j=0; j<rows; j++) {
+                if(i == 0 || i == cols-1 || j == 0 || j == rows-1) {
                     grid[i][j] = 1;
+                } else {
+                    grid[i][j] = 0;
                 }
             }
         }
+
+        grid[4][10] = 1;
+        grid[8][9] = 1;
+        grid[11][8] = 1;
+        grid[9][4] = 1;
+        grid[3][6] = 1;
+        grid[1][5] = 1;
     }
 
     private boolean isWall(int row, int col) {
@@ -35,7 +42,19 @@ public class TileMap {
         return grid[row][col] == 1;
     }
 
-    public boolean isColliding(int x, int y, int size) {
+    public boolean isCollidingX(int x, int y, int size) {
+        int left = x / TILE_SIZE;
+        int right = (x + size - 1) / TILE_SIZE;
+        int top = y / TILE_SIZE;
+        int bottom = (y + size - 1) / TILE_SIZE;
+
+        return isWall(top, left) ||
+            isWall(top, right) ||
+            isWall(bottom, left) ||
+            isWall(bottom, right);
+    }
+
+    public boolean isCollidingY(int x, int y, int size) {
         int left = x / TILE_SIZE;
         int right = (x + size - 1) / TILE_SIZE;
         int top = y / TILE_SIZE;
@@ -48,8 +67,8 @@ public class TileMap {
     }
 
     public void draw(Graphics g) {
-        for(int i=0; i<10; i++) {
-            for (int j=0; j<10; j++) {
+        for(int i=0; i<cols; i++) {
+            for (int j=0; j<rows; j++) {
                 if(grid[i][j] == 0) {
                     g.setColor(Color.WHITE);
                 } else {
