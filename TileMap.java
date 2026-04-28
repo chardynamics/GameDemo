@@ -42,7 +42,7 @@ public class TileMap {
         return grid[row][col] == 1;
     }
 
-    public boolean isCollidingX(int x, int y, int size) {
+    public boolean isColliding(int x, int y, int size) {
         int left = x / TILE_SIZE;
         int right = (x + size - 1) / TILE_SIZE;
         int top = y / TILE_SIZE;
